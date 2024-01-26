@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://da13xsfkrdbpy"]
 
-[ext_resource type="Texture2D" uid="uid://bf5lugx3o05ts" path="res://graphics/ground/dirt.png" id="1_ktdtg"]
+[ext_resource type="Texture2D" uid="uid://c6ow2w0kq8ft5" path="res://graphics/ground/stones.png" id="1_obw2e"]
 [ext_resource type="Script" path="res://levels/CharacterBody3D.gd" id="1_p4stk"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_cdxfu"]
@@ -8,13 +8,13 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_5n5gp"]
 size = Vector3(100, 1, 100)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uom7y"]
-albedo_texture = ExtResource("1_ktdtg")
-normal_texture = ExtResource("1_ktdtg")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_luikc"]
+albedo_texture = ExtResource("1_obw2e")
+uv1_scale = Vector3(60, 60, 60)
 
 [sub_resource type="BoxMesh" id="BoxMesh_0l5t5"]
-material = SubResource("StandardMaterial3D_uom7y")
-size = Vector3(100, 1, 100)
+material = SubResource("StandardMaterial3D_luikc")
+size = Vector3(300, 1, 300)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_1uodg"]
 
@@ -27,6 +27,10 @@ size = Vector3(1, 1.77457, 1)
 
 [node name="Level" type="Node3D"]
 
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.986543, -0.141597, 0.0817507, -0.0787277, 0.849607, 0.521508, -0.1433, 0.508054, -0.849321, 0, 10.3165, 0)
+shadow_enabled = true
+
 [node name="floor" type="StaticBody3D" parent="."]
 physics_material_override = SubResource("PhysicsMaterial_cdxfu")
 
@@ -36,17 +40,17 @@ shape = SubResource("BoxShape3D_5n5gp")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="floor"]
 mesh = SubResource("BoxMesh_0l5t5")
 
-[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.90737, 0)
+[node name="Player" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.61651, 0)
 script = ExtResource("1_p4stk")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
+[node name="PlayerBody" type="MeshInstance3D" parent="Player"]
 mesh = SubResource("CapsuleMesh_1uodg")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
 shape = SubResource("BoxShape3D_peqh6")
 
-[node name="Camera3D" type="Camera3D" parent="CharacterBody3D"]
+[node name="Camera3D" type="Camera3D" parent="Player"]
 transform = Transform3D(-0.999983, 3.45721e-10, -0.00588166, -0.0029765, 0.862496, 0.506055, 0.00507291, 0.506064, -0.862481, 0, 1.91879, -2.60999)
 
 [node name="RigidBody3D" type="RigidBody3D" parent="."]
@@ -57,6 +61,3 @@ shape = SubResource("SphereShape3D_4bcxm")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
 mesh = SubResource("SphereMesh_rnwwr")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.127837, -0.289449, 0.948618, -0.0386571, 0.957193, 0.286856, -0.991042, 0, -0.133554, 9.43585, 5.50135, -0.778023)
