@@ -23,3 +23,15 @@ func _create_projectile(pos, direction):
 	proj.position = pos
 	proj.direction = direction
 	$Projectiles.add_child(proj)
+
+
+func _on_player_fp_open_ui():
+	$UI.visible = !$UI.visible
+	if $UI.visible:
+		Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
+	else:
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+
+func _on_ui_close():
+	get_tree().quit()

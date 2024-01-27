@@ -1,20 +1,45 @@
-[gd_scene format=3 uid="uid://bf8afrc3qvyxs"]
+[gd_scene load_steps=2 format=3 uid="uid://bf8afrc3qvyxs"]
+
+[ext_resource type="Script" path="res://UI/ui.gd" id="1_yor0d"]
 
 [node name="UI" type="CanvasLayer"]
+script = ExtResource("1_yor0d")
 
-[node name="PauseMenu" type="Control" parent="."]
+[node name="Menu" type="Control" parent="."]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="MarginContainer" type="MarginContainer" parent="Menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.5
+offset_top = -33.0
+offset_right = 25.5
+offset_bottom = 33.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Button" type="Button" parent="PauseMenu/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/MarginContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 50
 
-[node name="Button2" type="Button" parent="PauseMenu/VBoxContainer"]
+[node name="Quit" type="Button" parent="Menu/MarginContainer/VBoxContainer"]
 layout_mode = 2
+text = "Quit"
+
+[node name="Reset" type="Button" parent="Menu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Reset
+"
+
+[connection signal="pressed" from="Menu/MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Menu/MarginContainer/VBoxContainer/Reset" to="." method="_on_reset_pressed"]

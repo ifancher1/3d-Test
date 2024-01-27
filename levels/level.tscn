@@ -3,12 +3,12 @@
 [ext_resource type="Script" path="res://levels/level.gd" id="1_gfn8a"]
 [ext_resource type="Texture2D" uid="uid://c6ow2w0kq8ft5" path="res://graphics/ground/stones.png" id="1_obw2e"]
 [ext_resource type="PackedScene" uid="uid://vw45fn80sf0y" path="res://player/player_fp.tscn" id="2_rcnck"]
-[ext_resource type="PackedScene" uid="uid://45sysj7tumgx" path="res://projectiles/projectile.tscn" id="4_mts23"]
+[ext_resource type="PackedScene" uid="uid://bf8afrc3qvyxs" path="res://UI/ui.tscn" id="4_vwhsn"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_cdxfu"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_5n5gp"]
-size = Vector3(100, 1, 100)
+[sub_resource type="BoxShape3D" id="BoxShape3D_8cl0i"]
+size = Vector3(300, 1, 300)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_luikc"]
 albedo_texture = ExtResource("1_obw2e")
@@ -33,8 +33,7 @@ shadow_enabled = true
 physics_material_override = SubResource("PhysicsMaterial_cdxfu")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="floor"]
-transform = Transform3D(3, 0, 0, 0, 1, 0, 0, 0, 3, 0, 0, 0)
-shape = SubResource("BoxShape3D_5n5gp")
+shape = SubResource("BoxShape3D_8cl0i")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="floor"]
 mesh = SubResource("BoxMesh_0l5t5")
@@ -53,7 +52,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.36234, 0)
 
 [node name="Projectiles" type="Node3D" parent="."]
 
-[node name="Projectile" parent="Projectiles" instance=ExtResource("4_mts23")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.67652, 0.9758)
+[node name="UI" parent="." instance=ExtResource("4_vwhsn")]
 
 [connection signal="fireWeapon" from="PlayerFp" to="." method="_on_player_fp_fire_weapon"]
+[connection signal="openUI" from="PlayerFp" to="." method="_on_player_fp_open_ui"]
+[connection signal="close" from="UI" to="." method="_on_ui_close"]

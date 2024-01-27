@@ -5,11 +5,13 @@ const SPEED = 5.0
 const JUMP_VELOCITY = 6
 
 signal fireWeapon(pos, direction)
+signal openUI()
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 var sprint: int
 var doublejump: int = 2
+var airborne: bool
 
 var playerdirection: Vector3
 
@@ -20,9 +22,11 @@ func _physics_process(delta):
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y -= gravity * delta
+		airborne = true
 	#reset double jump counter
 	if is_on_floor():
 		doublejump = 2
+		airborne = false
 
 	# Handle Jump.
 	if Input.is_action_just_pressed("ui_accept") and doublejump > 0:
@@ -31,6 +35,7 @@ func _physics_process(delta):
 	
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
+	
 	var input_dir = Input.get_vector("right", "left", "backward", "forward")
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
@@ -59,6 +64,9 @@ func _input(event):
 	
 	if event.is_action_pressed("quit"):
 		get_tree().quit()
+	
+	if event.is_action_pressed("openMenu"):
+		openUI.emit()
 	
 	if event.is_action_pressed("left_click"):
 		playerdirection = -$Camera/Camera3D.get_global_transform().basis.z
