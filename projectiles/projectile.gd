@@ -1,10 +1,14 @@
 extends Node3D
 
-var speed: int = 1
+var speed: int = 100
+var direction: Vector3
 
 func _ready():
-	pass
+	$Timer.start()
 	
 func _process(delta):
-	var Tdirection = Vector3(1, 0, 0)
-	position += Tdirection * speed * delta
+	position += direction * speed * delta
+
+
+func _on_timer_timeout():
+	queue_free()

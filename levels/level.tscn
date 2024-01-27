@@ -33,14 +33,14 @@ shadow_enabled = true
 physics_material_override = SubResource("PhysicsMaterial_cdxfu")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="floor"]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+transform = Transform3D(3, 0, 0, 0, 1, 0, 0, 0, 3, 0, 0, 0)
 shape = SubResource("BoxShape3D_5n5gp")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="floor"]
 mesh = SubResource("BoxMesh_0l5t5")
 
 [node name="RigidBody3D" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.28012, 2.82148)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.87683, 4.45495)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
 shape = SubResource("SphereShape3D_4bcxm")
@@ -55,3 +55,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.36234, 0)
 
 [node name="Projectile" parent="Projectiles" instance=ExtResource("4_mts23")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.67652, 0.9758)
+
+[connection signal="fireWeapon" from="PlayerFp" to="." method="_on_player_fp_fire_weapon"]

@@ -4,11 +4,14 @@ extends CharacterBody3D
 const SPEED = 5.0
 const JUMP_VELOCITY = 6
 
+signal fireWeapon(pos, direction)
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 var sprint: int
 var doublejump: int = 2
+
+var playerdirection: Vector3
 
 @export var sensitivity = 1000
 
@@ -46,7 +49,6 @@ func _physics_process(delta):
 
 	move_and_slide()
 	
-	var playerdirection = Vector3(1, 0, 0)
 	
 func _input(event):
 	#use the mouse movement to rotate the camera and player
@@ -57,3 +59,9 @@ func _input(event):
 	
 	if event.is_action_pressed("quit"):
 		get_tree().quit()
+	
+	if event.is_action_pressed("left_click"):
+		playerdirection = -$Camera/Camera3D.get_global_transform().basis.z
+		print($Camera/Camera3D.get_global_transform().basis.z)
+		#print(global_position)
+		fireWeapon.emit(global_position, playerdirection)
