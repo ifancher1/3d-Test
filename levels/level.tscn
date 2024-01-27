@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://da13xsfkrdbpy"]
+[gd_scene load_steps=11 format=3 uid="uid://da13xsfkrdbpy"]
 
 [ext_resource type="Script" path="res://levels/level.gd" id="1_gfn8a"]
 [ext_resource type="Texture2D" uid="uid://c6ow2w0kq8ft5" path="res://graphics/ground/stones.png" id="1_obw2e"]
 [ext_resource type="PackedScene" uid="uid://vw45fn80sf0y" path="res://player/player_fp.tscn" id="2_rcnck"]
+[ext_resource type="PackedScene" uid="uid://45sysj7tumgx" path="res://projectiles/projectile.tscn" id="4_mts23"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_cdxfu"]
 
@@ -32,6 +33,7 @@ shadow_enabled = true
 physics_material_override = SubResource("PhysicsMaterial_cdxfu")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="floor"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
 shape = SubResource("BoxShape3D_5n5gp")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="floor"]
@@ -48,3 +50,8 @@ mesh = SubResource("SphereMesh_rnwwr")
 
 [node name="PlayerFp" parent="." instance=ExtResource("2_rcnck")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.36234, 0)
+
+[node name="Projectiles" type="Node3D" parent="."]
+
+[node name="Projectile" parent="Projectiles" instance=ExtResource("4_mts23")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.67652, 0.9758)

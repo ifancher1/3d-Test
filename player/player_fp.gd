@@ -12,6 +12,7 @@ var doublejump: int = 2
 
 @export var sensitivity = 1000
 
+
 func _physics_process(delta):
 	# Add the gravity.
 	if not is_on_floor():
@@ -45,12 +46,14 @@ func _physics_process(delta):
 
 	move_and_slide()
 	
+	var playerdirection = Vector3(1, 0, 0)
+	
 func _input(event):
 	#use the mouse movement to rotate the camera and player
 	if event is InputEventMouseMotion:
 		rotation.y -= event.relative.x / sensitivity
-		$Node3D/Camera3D.rotation.x -= event.relative.y / sensitivity
-		$Node3D/Camera3D.rotation.x = clamp($Node3D/Camera3D.rotation.x, deg_to_rad(-70), deg_to_rad(90))
+		$Camera/Camera3D.rotation.x -= event.relative.y / sensitivity
+		$Camera/Camera3D.rotation.x = clamp($Camera/Camera3D.rotation.x, deg_to_rad(-70), deg_to_rad(90))
 	
 	if event.is_action_pressed("quit"):
 		get_tree().quit()

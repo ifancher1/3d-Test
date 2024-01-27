@@ -16,11 +16,13 @@ mesh = SubResource("CapsuleMesh_0fei1")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_umsjs")
 
-[node name="Node3D" type="Node3D" parent="."]
+[node name="Camera" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.516233, 0)
 
-[node name="Camera3D" type="Camera3D" parent="Node3D"]
+[node name="Camera3D" type="Camera3D" parent="Camera"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
-[node name="Weapon" parent="." instance=ExtResource("2_ap13m")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.446282, 0.146377, 0.523038)
+[node name="Weapon" parent="Camera/Camera3D" instance=ExtResource("2_ap13m")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0.446282, -0.369856, -0.523038)
+
+[node name="Inventory" type="Node3D" parent="."]
