@@ -4,28 +4,29 @@ extends CharacterBody3D
 const SPEED = 5.0
 const JUMP_VELOCITY = 6
 
+# Get the gravity from the project settings to be synced with RigidBody nodes.
+var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+
 var sprint: int
 var doublejump: int = 2
 
 @export var sensitivity = 1000
 
-# Get the gravity from the project settings to be synced with RigidBody nodes.
-var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
-
-
 func _physics_process(delta):
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y -= gravity * delta
+	#reset double jump counter
 	if is_on_floor():
 		doublejump = 2
+
 	# Handle Jump.
-	if Input.is_action_just_pressed("jump") and doublejump > 0:
+	if Input.is_action_just_pressed("ui_accept") and doublejump > 0:
 		velocity.y = JUMP_VELOCITY
 		doublejump -= 1
-		print(gravity)
-
+	
 	# Get the input direction and handle the movement/deceleration.
+	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir = Input.get_vector("right", "left", "backward", "forward")
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
@@ -45,7 +46,11 @@ func _physics_process(delta):
 	move_and_slide()
 	
 func _input(event):
+	#use the mouse movement to rotate the camera and player
 	if event is InputEventMouseMotion:
 		rotation.y -= event.relative.x / sensitivity
-		$CameraPivot.rotation.x -= event.relative.y / sensitivity
-		$CameraPivot.rotation.x = clamp($CameraPivot.rotation.x, deg_to_rad(-45), deg_to_rad(90))
+		$Node3D/Camera3D.rotation.x -= event.relative.y / sensitivity
+		$Node3D/Camera3D.rotation.x = clamp($Node3D/Camera3D.rotation.x, deg_to_rad(-70), deg_to_rad(90))
+	
+	if event.is_action_pressed("quit"):
+		get_tree().quit()
