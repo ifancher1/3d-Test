@@ -8,6 +8,7 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_umsjs"]
 
 [node name="PlayerFp" type="CharacterBody3D"]
+collision_mask = 30
 script = ExtResource("1_nj5md")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

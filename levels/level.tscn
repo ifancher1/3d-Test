@@ -18,7 +18,7 @@ uv1_scale = Vector3(60, 60, 60)
 material = SubResource("StandardMaterial3D_luikc")
 size = Vector3(300, 1, 300)
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_4bcxm"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_ipcsg"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_rnwwr"]
 
@@ -30,6 +30,8 @@ transform = Transform3D(-0.986543, -0.141597, 0.0817507, -0.0787277, 0.849607, 0
 shadow_enabled = true
 
 [node name="floor" type="StaticBody3D" parent="."]
+collision_layer = 8
+collision_mask = 23
 physics_material_override = SubResource("PhysicsMaterial_cdxfu")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="floor"]
@@ -38,13 +40,15 @@ shape = SubResource("BoxShape3D_8cl0i")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="floor"]
 mesh = SubResource("BoxMesh_0l5t5")
 
-[node name="RigidBody3D" type="RigidBody3D" parent="."]
+[node name="Ball" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.87683, 4.45495)
+collision_layer = 2
+collision_mask = 31
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
-shape = SubResource("SphereShape3D_4bcxm")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ball"]
+shape = SubResource("SphereShape3D_ipcsg")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ball"]
 mesh = SubResource("SphereMesh_rnwwr")
 
 [node name="PlayerFp" parent="." instance=ExtResource("2_rcnck")]

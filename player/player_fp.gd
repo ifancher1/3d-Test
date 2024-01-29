@@ -17,6 +17,10 @@ var playerdirection: Vector3
 
 @export var sensitivity = 1000
 
+#raycast representing the direction and position of the gun barrel
+@onready var gunDir = $Camera/Camera3D/Weapon/Barrel
+@onready var camera = $Camera/Camera3D
+
 
 func _physics_process(delta):
 	# Add the gravity.
@@ -34,7 +38,6 @@ func _physics_process(delta):
 		doublejump -= 1
 	
 	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
 	
 	var input_dir = Input.get_vector("right", "left", "backward", "forward")
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
@@ -62,14 +65,17 @@ func _input(event):
 		$Camera/Camera3D.rotation.x -= event.relative.y / sensitivity
 		$Camera/Camera3D.rotation.x = clamp($Camera/Camera3D.rotation.x, deg_to_rad(-70), deg_to_rad(90))
 	
+	#quit the game if ` key is pressed
 	if event.is_action_pressed("quit"):
 		get_tree().quit()
 	
+	#open the menu if the esc key is pressed
 	if event.is_action_pressed("openMenu"):
 		openUI.emit()
 	
+	#fire a projectile from the barrel of the gun when the player left clicks
 	if event.is_action_pressed("left_click"):
-		playerdirection = -$Camera/Camera3D.get_global_transform().basis.z
-		print($Camera/Camera3D.get_global_transform().basis.z)
-		#print(global_position)
-		fireWeapon.emit(global_position, playerdirection)
+		#subtract the camera direction from the gun barrel direction in order to create a vector
+		#that goes from the barrel to the center of the screen. This ensures that the projectile
+		#is always traveling to where the player is aiming 
+		fireWeapon.emit(gunDir.global_position, gunDir.global_transform.basis.z - camera.global_transform.basis.z)

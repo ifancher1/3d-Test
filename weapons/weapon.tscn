@@ -19,9 +19,13 @@ mesh = SubResource("CylinderMesh_dya7x")
 
 [node name="flash" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.975888)
+visible = false
 mesh = SubResource("SphereMesh_aumrd")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.2
+
+[node name="Barrel" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, 1)
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,24 +1,60 @@
-[gd_scene load_steps=4 format=3 uid="uid://45sysj7tumgx"]
+[gd_scene load_steps=8 format=3 uid="uid://45sysj7tumgx"]
 
 [ext_resource type="Script" path="res://projectiles/projectile.gd" id="1_a4m7j"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_qsb2e"]
-radius = 0.934412
+[sub_resource type="BoxShape3D" id="BoxShape3D_jxl5l"]
+size = Vector3(0.2, 0.2, 0.2)
 
 [sub_resource type="SphereMesh" id="SphereMesh_lr2qr"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nqsrx"]
+albedo_color = Color(0.886275, 0, 0.94902, 1)
+emission_enabled = true
+emission = Color(0.886275, 0, 0.94902, 1)
+emission_energy_multiplier = 5.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ve00j"]
+albedo_color = Color(0.886275, 0, 0.94902, 1)
+emission_enabled = true
+emission = Color(0.886275, 0, 0.94902, 1)
+emission_energy_multiplier = 8.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_20rsu"]
+direction = Vector3(0, 0, -1)
+initial_velocity_min = 3.0
+initial_velocity_max = 5.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_4om27"]
+size = Vector3(0.1, 0.1, 0.1)
 
 [node name="Projectile" type="Node3D"]
 script = ExtResource("1_a4m7j")
 
 [node name="Area3D" type="Area3D" parent="."]
+collision_layer = 16
+collision_mask = 30
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-shape = SubResource("SphereShape3D_qsb2e")
+[node name="ProjectileHitbox" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_jxl5l")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
 mesh = SubResource("SphereMesh_lr2qr")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_nqsrx")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 5.0
 
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_ve00j")
+emitting = false
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_20rsu")
+draw_pass_1 = SubResource("BoxMesh_4om27")
+
+[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
+[connection signal="area_shape_entered" from="Area3D" to="." method="_on_area_3d_area_shape_entered"]
+[connection signal="body_shape_entered" from="Area3D" to="." method="_on_area_3d_body_shape_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

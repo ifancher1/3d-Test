@@ -18,14 +18,14 @@ func _ready():
 
 func _input(event):
 	if event.is_action_pressed("left_click") and CanFire:
-		print("fire")
-		$flash.visible = true
+		#print("fire")
+		#$flash.visible = true
 		CanFire = false
 		$Timer.start()
 
 
 
 func _on_timer_timeout():
-	$flash.visible = false
+	#$flash.visible = false
 	CanFire = true
 	
