@@ -7,6 +7,9 @@ var projectile_scene: PackedScene = preload("res://projectiles/projectile.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
+	#print($PlayerFp/Camera/Camera3D.global_transform.basis.z)
+	#print($PlayerFp/Camera/Camera3D/Weapon/Barrel.global_transform.basis.z)
+	#print($PlayerFp/Camera/Camera3D/Weapon/Barrel.global_transform.basis.z - $PlayerFp/Camera/Camera3D.global_transform.basis.z)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -22,6 +25,7 @@ func _create_projectile(pos, direction):
 	var proj = projectile_scene.instantiate() as Node3D
 	proj.position = pos
 	proj.direction = direction
+	#print(direction)
 	$Projectiles.add_child(proj)
 
 

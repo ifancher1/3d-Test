@@ -1,9 +1,8 @@
 extends Node3D
 
-var speed: int = 1
+var speed: int = 10
 var direction: Vector3
 
-@onready var ray = $RayCast3D
 @onready var mesh = $Area3D/MeshInstance3D
 @onready var particles = $GPUParticles3D
 

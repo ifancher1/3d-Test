@@ -14,11 +14,12 @@ var doublejump: int = 2
 var airborne: bool
 
 var playerdirection: Vector3
+var projDirection: Vector3
 
 @export var sensitivity = 1000
 
 #raycast representing the direction and position of the gun barrel
-@onready var gunDir = $Camera/Camera3D/Weapon/Barrel
+@onready var gunDir = $Camera/Camera3D/Weapon/BarrelPos
 @onready var camera = $Camera/Camera3D
 
 
@@ -77,5 +78,7 @@ func _input(event):
 	if event.is_action_pressed("left_click"):
 		#subtract the camera direction from the gun barrel direction in order to create a vector
 		#that goes from the barrel to the center of the screen. This ensures that the projectile
-		#is always traveling to where the player is aiming 
-		fireWeapon.emit(gunDir.global_position, gunDir.global_transform.basis.z - camera.global_transform.basis.z)
+		#is always traveling to where the player is aiming  - camera.global_transform.basis.z
+		projDirection = ($Camera/Camera3D/PlayerCrosshair.global_position - $Camera/Camera3D/Weapon/BarrelPos.global_position).normalized()
+		#print(projDirection)
+		fireWeapon.emit(gunDir.global_position, projDirection)

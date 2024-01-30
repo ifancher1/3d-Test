@@ -44,7 +44,7 @@ skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_nqsrx")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 44.312
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
 material_override = SubResource("StandardMaterial3D_ve00j")
