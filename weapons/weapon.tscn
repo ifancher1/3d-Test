@@ -3,10 +3,10 @@
 [ext_resource type="Script" path="res://weapons/weapon.gd" id="1_xtycq"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_g13tc"]
-size = Vector3(0.5, 1, 0.5)
+size = Vector3(0.5, 0.5, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_2g2rk"]
-size = Vector3(0.1, 0.3, 0.1)
+size = Vector3(0.1, 0.1, 0.3)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4p8m4"]
 albedo_color = Color(1, 1, 0, 1)
@@ -18,11 +18,11 @@ material = SubResource("StandardMaterial3D_4p8m4")
 script = ExtResource("1_xtycq")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.5, 0, 0, 0, -2.18557e-08, -0.5, 0, 0.5, -2.18557e-08, 0, 0, 0)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 mesh = SubResource("BoxMesh_g13tc")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.259792, -0.262342)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.259792, 0.27739)
 mesh = SubResource("BoxMesh_2g2rk")
 
 [node name="flash" type="MeshInstance3D" parent="."]
@@ -38,6 +38,6 @@ visible = false
 target_position = Vector3(0, 0, 1)
 
 [node name="BarrelPos" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.25)
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

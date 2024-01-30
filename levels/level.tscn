@@ -1,9 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://da13xsfkrdbpy"]
+[gd_scene load_steps=13 format=3 uid="uid://da13xsfkrdbpy"]
 
 [ext_resource type="Script" path="res://levels/level.gd" id="1_gfn8a"]
 [ext_resource type="Texture2D" uid="uid://c6ow2w0kq8ft5" path="res://graphics/ground/stones.png" id="1_obw2e"]
 [ext_resource type="PackedScene" uid="uid://vw45fn80sf0y" path="res://player/player_fp.tscn" id="2_rcnck"]
 [ext_resource type="PackedScene" uid="uid://bf8afrc3qvyxs" path="res://UI/ui.tscn" id="4_vwhsn"]
+[ext_resource type="PackedScene" uid="uid://cq7lcl0tt3o7l" path="res://NPCs/npc.tscn" id="5_bd88y"]
+[ext_resource type="PackedScene" uid="uid://cwlfp3lw6qlai" path="res://UI/crosshair.tscn" id="5_q6dgt"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_cdxfu"]
 
@@ -57,6 +59,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.36234, 0)
 [node name="Projectiles" type="Node3D" parent="."]
 
 [node name="UI" parent="." instance=ExtResource("4_vwhsn")]
+
+[node name="Crosshair" parent="." instance=ExtResource("5_q6dgt")]
+
+[node name="NPCs" type="Node3D" parent="."]
+
+[node name="NPC" parent="NPCs" instance=ExtResource("5_bd88y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.58689, 1.63513, 8.21224)
 
 [connection signal="fireWeapon" from="PlayerFp" to="." method="_on_player_fp_fire_weapon"]
 [connection signal="openUI" from="PlayerFp" to="." method="_on_player_fp_open_ui"]

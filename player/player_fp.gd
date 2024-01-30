@@ -21,7 +21,7 @@ var projDirection: Vector3
 #raycast representing the direction and position of the gun barrel
 @onready var gunDir = $Camera/Camera3D/Weapon/BarrelPos
 @onready var camera = $Camera/Camera3D
-
+@onready var aim = $Camera/Camera3D/RayCast3D
 
 func _physics_process(delta):
 	# Add the gravity.
@@ -79,6 +79,16 @@ func _input(event):
 		#subtract the camera direction from the gun barrel direction in order to create a vector
 		#that goes from the barrel to the center of the screen. This ensures that the projectile
 		#is always traveling to where the player is aiming  - camera.global_transform.basis.z
-		projDirection = ($Camera/Camera3D/PlayerCrosshair.global_position - $Camera/Camera3D/Weapon/BarrelPos.global_position).normalized()
+		var target
+		if aim.is_colliding():
+			print(aim.get_collider())
+			target = aim.get_collider().position
+			projDirection = (target - $Camera/Camera3D/Weapon/BarrelPos.global_position).normalized()
+		else:
+			print("nope")
+			projDirection = (camera.global_transform * (Vector3.FORWARD*1000)).normalized()
+			print(projDirection)
+			#projDirection = ($Camera/Camera3D/PlayerCrosshair.global_position - $Camera/Camera3D/Weapon/BarrelPos.global_position).normalized()
+		#projDirection = ($Camera/Camera3D/PlayerCrosshair.global_position - $Camera/Camera3D/Weapon/BarrelPos.global_position).normalized()
 		#print(projDirection)
 		fireWeapon.emit(gunDir.global_position, projDirection)

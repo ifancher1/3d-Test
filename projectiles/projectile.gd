@@ -18,8 +18,9 @@ func _on_timer_timeout():
 
 
 func _on_area_3d_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
-	print("hit")
+	#print("hit")
 	mesh.visible = false
+	particles.process_material.direction = -direction
 	particles.emitting = true
 	await get_tree().create_timer(1.0).timeout
 	queue_free()

@@ -7,6 +7,7 @@ var projectile_scene: PackedScene = preload("res://projectiles/projectile.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
+	$Crosshair.visible = false
 	#print($PlayerFp/Camera/Camera3D.global_transform.basis.z)
 	#print($PlayerFp/Camera/Camera3D/Weapon/Barrel.global_transform.basis.z)
 	#print($PlayerFp/Camera/Camera3D/Weapon/Barrel.global_transform.basis.z - $PlayerFp/Camera/Camera3D.global_transform.basis.z)
@@ -30,6 +31,7 @@ func _create_projectile(pos, direction):
 
 
 func _on_player_fp_open_ui():
+	$Crosshair.visible = !$Crosshair.visible
 	$UI.visible = !$UI.visible
 	if $UI.visible:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
